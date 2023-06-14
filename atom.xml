@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://bacteriajun.com</id>
+    <title>汤菌的小窝</title>
+    <updated>2023-06-14T02:29:12.209Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://bacteriajun.com"/>
+    <link rel="self" href="https://bacteriajun.com/atom.xml"/>
+    <subtitle>且视他人之疑目为盏盏鬼火，大胆的去走你的夜路</subtitle>
+    <logo>https://bacteriajun.com/images/avatar.png</logo>
+    <icon>https://bacteriajun.com/favicon.ico</icon>
+    <rights>All rights reserved 2023, 汤菌的小窝</rights>
+    <entry>
+        <title type="html"><![CDATA[万向节死锁问题分析]]></title>
+        <id>https://bacteriajun.com/post/wan-xiang-jie-si-suo-wen-ti-fen-xi/</id>
+        <link href="https://bacteriajun.com/post/wan-xiang-jie-si-suo-wen-ti-fen-xi/">
+        </link>
+        <updated>2023-06-13T10:52:45.000Z</updated>
+        <summary type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://bacteriajun.com/post-images/1686658256232.jpg" alt="" loading="lazy"></figure>
+<h2 id="欧拉角">欧拉角</h2>
+<p><font size=4>  欧拉角用来在3D世界中表示物体的朝向，从物体的最初始状态（一般会选择和世界坐标系重合作为最初状态）绕着自身坐标系的xyz三个轴进行旋转三个角度，来表示物体的朝向。</font></p>
+]]></summary>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://bacteriajun.com/post-images/1686658256232.jpg" alt="" loading="lazy"></figure>
+<h2 id="欧拉角">欧拉角</h2>
+<p><font size=4>  欧拉角用来在3D世界中表示物体的朝向，从物体的最初始状态（一般会选择和世界坐标系重合作为最初状态）绕着自身坐标系的xyz三个轴进行旋转三个角度，来表示物体的朝向。</font></p>
+<!-- more -->
+<h2 id="万向锁">万向锁</h2>
+<p><font size=4>  假设我们按照z-y-x的顺序对物体进行旋转，先绕z轴旋转α度，再绕y轴旋转90度，再绕x轴旋转β度，这个时候就会出现<font color=Red><strong>万向锁</strong></font>。这个时候最后绕x轴旋转β角度，最终得到的效果和绕z轴旋转是一样的，这样就退化成只有两个轴的旋转有作用，另一个轴的自由度丢失了。可以在Unity或UE4中设置Rotation的值看看，当改变绕z或绕x旋转的角度时，物体是在绕同一个轴进行旋转。这就会导致在逻辑上出现问题，导致出现明明数据上是有绕z轴旋转，可是最终的姿态却没有绕z轴旋转的现象。</font></p>
+<!-- more -->
+<h2 id="理解">理解</h2>
+<p><font size=4>  理解这个问题的关键在于：欧拉角是由三个角度表示，表示物体从原始姿态到目标姿态的一个变换。无论（α，β，γ）三个角度值是多少，都是得从物体的原始姿态开始进行绕轴进行旋转。所以物体的姿态都是相对于其最原始姿态的，上述图例中说到的，先绕X轴旋转30度，再绕Y轴旋转90度，再绕Z轴旋转10度得到的最终姿态和先绕X轴旋转20度，再绕Y轴旋转90度的结果一样。因此相对于<font color=Red><strong>最初姿态</strong></font>而言，当一个欧拉角包含绕Y轴旋转90度时，绕X轴和绕Z轴旋转已经是在绕同一个轴在进行旋转，这个时候只有两个轴在起作用。这个时候就是万向锁的状态。</font></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[流量日志分析]]></title>
+        <id>https://bacteriajun.com/post/liu-liang-ri-zhi-fen-xi/</id>
+        <link href="https://bacteriajun.com/post/liu-liang-ri-zhi-fen-xi/">
+        </link>
+        <updated>2023-06-10T11:51:52.000Z</updated>
+        <summary type="html"><![CDATA[<blockquote>
+<p>定理1：正常用户不会访问网站的备份文件。<br>
+定理2：正常用户的连续访问速度是有限的。<br>
+定理3：正常用户不会高度有规律的访问。</p>
+</blockquote>
+<h1 id="一分析出对我方实施侦查扫描的ip">一.分析出对我方实施侦查扫描的ip</h1>
+<pre><code>2023-04-21 7:57:42 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.101.243 ,sport=59393, type=NULL da=192.168.80.1, dport=80, msg= /index.php?module=Employees&amp;action=EditView&amp;return_module=Employees&amp;return_action=DetailView                                  
+ 2023-04-21 7:57:42 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.102.22  ,sport=58756, type=NULL da=192.168.80.1, dport=80, msg= /index.php?module=Employees&amp;action=DetailView&amp;record=seed_chris_id                                                            
+ 2023-04-21 7:57:42 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.101.243 ,sport=59393, type=NULL da=192.168.80.1, dport=80, msg= /themes/Sugar5/images/sugar_icon.ico?v=VPS6AVUAJhkiW9wJBJenYA                                                                            
+ 2023-04-22 7:52:10 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.102.56  ,sport=58635, type=NULL da=192.168.80.1, dport=80, msg= /include/javascript/yui/build/event-delegate/event-delegate-min.js                                                            
+ 2023-04-22 7:52:10 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.102.56  ,sport=58635, type=NULL da=192.168.80.1, dport=80, msg= /include/javascript/yui/build/layout/layout-min.js                                                                            
+ 2023-04-22 7:52:10 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.102.56  ,sport=58635, type=NULL da=192.168.80.1, dport=80, msg= /include/javascript/yui/build/cookie/cookie-min.js 
+ 2023-04-21 7:52:33 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.102.56  ,sport=58633, type=NULL da=192.168.80.1, dport=80, msg= /cache/jsLanguage/Meetings/en_us.js?v=x9vstRJBVMwqC35jL3srqw                                                                                                                  
+ 2023-04-21 6:48:53 , ver=0.3.0 rule_name=pf70 mod=pf sa=192.168.1.166 , sport=57056, type=NULL da=192.168.80.1 , dport=80 msg=/create.php                                                                                                                   
+ 2023-04-21 6:48:53 , ver=0.3.0 rule_name=pf70 mod=pf sa=192.168.1.166 , sport=57058, type=NULL da=192.168.80.1 , dport=80 msg=/daemon.php                                                                                                                   
+ 2023-04-21 6:48:53 , ver=0.3.0 rule_name=pf70 mod=pf sa=192.168.1.166 , sport=57057, type=NULL da=192.168.80.1 , dport=80 msg=/kwadmin/A_Login.php                                                                                                          
+ 2023-04-21 6:48:53 , ver=0.3.0 rule_name=pf70 mod=pf sa=192.168.1.166 , sport=57059, type=NULL da=192.168.80.1 , dport=80 msg=/defalut.html                                                                                                                           
+ 2023-04-21 6:50:41 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.101.200 ,sport=57319, type=NULL da=192.168.80.1, dport=80, msg= /webfire/                                                                                                                         
+ 2023-04-21 6:50:41 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.101.200 ,sport=57319, type=NULL da=192.168.80.1, dport=80, msg= /webfire/portal/sp/login.php                                                                                                      
+ 2023-04-21 6:50:46 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.101.200 ,sport=57319, type=NULL da=192.168.80.1, dport=80, msg= /webfire/portal/sp/login.php                                                                                                             
+ 2023-04-21 6:48:53 , ver=0.3.0 rule_name=pf70 mod=pf sa=192.168.1.166 , sport=57060, type=NULL da=192.168.80.1 , dport=80 msg=/default.php.bak                                                                                                              
+ 2023-04-21 6:48:53 , ver=0.3.0 rule_name=pf70 mod=pf sa=192.168.1.166 , sport=57068, type=NULL da=192.168.80.1 , dport=80 msg=/default_1.php 
+2023-04-22 7:52:47 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.102.56  ,sport=58633, type=NULL da=192.168.80.1, dport=80, msg= /themes/Sugar5/images/icon_SugarFeed.gif?v=VPS6AVUAJhkiW9wJBJenYA                                                             
+ 2023-04-22 7:52:47 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.102.56  ,sport=58651, type=NULL da=192.168.80.1, dport=80, msg= /themes/Sugar5/images/EmailMan.gif?v=VPS6AVUAJhkiW9wJBJenYA                                                                   
+ 2023-04-22 7:52:47 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.102.56  ,sport=58636, type=NULL da=192.168.80.1, dport=80, msg= /themes/Sugar5/images/InboundEmail.gif?v=VPS6AVUAJhkiW9wJBJenYA        
+</code></pre>
+<p><font size=5><strong>特征</strong></font></p>
+<p>分析对我方实施侦查的ip，一般要抓住扫描器会扫描，但正常流量不可能访问的特殊地址来分析</p>
+<p>根据<font color=Red><strong>定理1</strong></font>，我们可以查找有无访问网站备份文件的ip</p>
+<p>常见的网站源码备份文件后缀</p>
+<ul>
+<li>tar</li>
+<li>tar.gz</li>
+<li>zip</li>
+<li>rar</li>
+</ul>
+<p>常见的网站源码备份文件名</p>
+<ul>
+<li>web</li>
+<li>website</li>
+<li>backup</li>
+<li>back</li>
+<li>www</li>
+<li>wwwroot</li>
+<li>temp</li>
+</ul>
+<p>我们通过查找<font color=Red><strong>bak</strong></font>文件，锁定了对方ip和对应的流量日志条目</p>
+<pre><code>2023-04-21 6:48:53 , ver=0.3.0 rule_name=pf70 mod=pf sa=192.168.1.166 , sport=57060, type=NULL da=192.168.80.1 , dport=80 msg=/default.php.bak 
+</code></pre>
+<h1 id="二分析出几个ip对我方发起访问">二.分析出几个ip对我方发起访问</h1>
+<p><font size=5><strong>Cat命令</strong></font></p>
+<p>在服务器开发中，我们经常会写入大量的日志文件。有时候我们需要对这些日志文件进行统计。Linux中我们可以利用以下命令简单高效的实现这一功能。</p>
+<p>cat命令主要有三大功能<br>
+1.一次显示整个文件 cat filename<br>
+2.创建一个文件 cat &gt; fileName<br>
+3.将几个文件合并为一个文件 cat file1 file2 &gt; file<br>
+<font size=3><strong>参数</strong></font><br>
+-n 或 –number 由 1 开始对所有输出的行数编号<br>
+-b 或 –number-nonblank 和 -n 相似，只不过对于空白行不编号<br>
+-s 或 –squeeze-blank 当遇到有连续两行以上的空白行，就代换为一行的空白行<br>
+-v 或 –show-nonprinting</p>
+]]></summary>
+        <content type="html"><![CDATA[<blockquote>
+<p>定理1：正常用户不会访问网站的备份文件。<br>
+定理2：正常用户的连续访问速度是有限的。<br>
+定理3：正常用户不会高度有规律的访问。</p>
+</blockquote>
+<h1 id="一分析出对我方实施侦查扫描的ip">一.分析出对我方实施侦查扫描的ip</h1>
+<pre><code>2023-04-21 7:57:42 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.101.243 ,sport=59393, type=NULL da=192.168.80.1, dport=80, msg= /index.php?module=Employees&amp;action=EditView&amp;return_module=Employees&amp;return_action=DetailView                                  
+ 2023-04-21 7:57:42 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.102.22  ,sport=58756, type=NULL da=192.168.80.1, dport=80, msg= /index.php?module=Employees&amp;action=DetailView&amp;record=seed_chris_id                                                            
+ 2023-04-21 7:57:42 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.101.243 ,sport=59393, type=NULL da=192.168.80.1, dport=80, msg= /themes/Sugar5/images/sugar_icon.ico?v=VPS6AVUAJhkiW9wJBJenYA                                                                            
+ 2023-04-22 7:52:10 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.102.56  ,sport=58635, type=NULL da=192.168.80.1, dport=80, msg= /include/javascript/yui/build/event-delegate/event-delegate-min.js                                                            
+ 2023-04-22 7:52:10 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.102.56  ,sport=58635, type=NULL da=192.168.80.1, dport=80, msg= /include/javascript/yui/build/layout/layout-min.js                                                                            
+ 2023-04-22 7:52:10 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.102.56  ,sport=58635, type=NULL da=192.168.80.1, dport=80, msg= /include/javascript/yui/build/cookie/cookie-min.js 
+ 2023-04-21 7:52:33 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.102.56  ,sport=58633, type=NULL da=192.168.80.1, dport=80, msg= /cache/jsLanguage/Meetings/en_us.js?v=x9vstRJBVMwqC35jL3srqw                                                                                                                  
+ 2023-04-21 6:48:53 , ver=0.3.0 rule_name=pf70 mod=pf sa=192.168.1.166 , sport=57056, type=NULL da=192.168.80.1 , dport=80 msg=/create.php                                                                                                                   
+ 2023-04-21 6:48:53 , ver=0.3.0 rule_name=pf70 mod=pf sa=192.168.1.166 , sport=57058, type=NULL da=192.168.80.1 , dport=80 msg=/daemon.php                                                                                                                   
+ 2023-04-21 6:48:53 , ver=0.3.0 rule_name=pf70 mod=pf sa=192.168.1.166 , sport=57057, type=NULL da=192.168.80.1 , dport=80 msg=/kwadmin/A_Login.php                                                                                                          
+ 2023-04-21 6:48:53 , ver=0.3.0 rule_name=pf70 mod=pf sa=192.168.1.166 , sport=57059, type=NULL da=192.168.80.1 , dport=80 msg=/defalut.html                                                                                                                           
+ 2023-04-21 6:50:41 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.101.200 ,sport=57319, type=NULL da=192.168.80.1, dport=80, msg= /webfire/                                                                                                                         
+ 2023-04-21 6:50:41 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.101.200 ,sport=57319, type=NULL da=192.168.80.1, dport=80, msg= /webfire/portal/sp/login.php                                                                                                      
+ 2023-04-21 6:50:46 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.101.200 ,sport=57319, type=NULL da=192.168.80.1, dport=80, msg= /webfire/portal/sp/login.php                                                                                                             
+ 2023-04-21 6:48:53 , ver=0.3.0 rule_name=pf70 mod=pf sa=192.168.1.166 , sport=57060, type=NULL da=192.168.80.1 , dport=80 msg=/default.php.bak                                                                                                              
+ 2023-04-21 6:48:53 , ver=0.3.0 rule_name=pf70 mod=pf sa=192.168.1.166 , sport=57068, type=NULL da=192.168.80.1 , dport=80 msg=/default_1.php 
+2023-04-22 7:52:47 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.102.56  ,sport=58633, type=NULL da=192.168.80.1, dport=80, msg= /themes/Sugar5/images/icon_SugarFeed.gif?v=VPS6AVUAJhkiW9wJBJenYA                                                             
+ 2023-04-22 7:52:47 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.102.56  ,sport=58651, type=NULL da=192.168.80.1, dport=80, msg= /themes/Sugar5/images/EmailMan.gif?v=VPS6AVUAJhkiW9wJBJenYA                                                                   
+ 2023-04-22 7:52:47 , ver=0.3.0 rule_name=pf70 mod=pf sa=172.20.102.56  ,sport=58636, type=NULL da=192.168.80.1, dport=80, msg= /themes/Sugar5/images/InboundEmail.gif?v=VPS6AVUAJhkiW9wJBJenYA        
+</code></pre>
+<p><font size=5><strong>特征</strong></font></p>
+<p>分析对我方实施侦查的ip，一般要抓住扫描器会扫描，但正常流量不可能访问的特殊地址来分析</p>
+<p>根据<font color=Red><strong>定理1</strong></font>，我们可以查找有无访问网站备份文件的ip</p>
+<p>常见的网站源码备份文件后缀</p>
+<ul>
+<li>tar</li>
+<li>tar.gz</li>
+<li>zip</li>
+<li>rar</li>
+</ul>
+<p>常见的网站源码备份文件名</p>
+<ul>
+<li>web</li>
+<li>website</li>
+<li>backup</li>
+<li>back</li>
+<li>www</li>
+<li>wwwroot</li>
+<li>temp</li>
+</ul>
+<p>我们通过查找<font color=Red><strong>bak</strong></font>文件，锁定了对方ip和对应的流量日志条目</p>
+<pre><code>2023-04-21 6:48:53 , ver=0.3.0 rule_name=pf70 mod=pf sa=192.168.1.166 , sport=57060, type=NULL da=192.168.80.1 , dport=80 msg=/default.php.bak 
+</code></pre>
+<h1 id="二分析出几个ip对我方发起访问">二.分析出几个ip对我方发起访问</h1>
+<p><font size=5><strong>Cat命令</strong></font></p>
+<p>在服务器开发中，我们经常会写入大量的日志文件。有时候我们需要对这些日志文件进行统计。Linux中我们可以利用以下命令简单高效的实现这一功能。</p>
+<p>cat命令主要有三大功能<br>
+1.一次显示整个文件 cat filename<br>
+2.创建一个文件 cat &gt; fileName<br>
+3.将几个文件合并为一个文件 cat file1 file2 &gt; file<br>
+<font size=3><strong>参数</strong></font><br>
+-n 或 –number 由 1 开始对所有输出的行数编号<br>
+-b 或 –number-nonblank 和 -n 相似，只不过对于空白行不编号<br>
+-s 或 –squeeze-blank 当遇到有连续两行以上的空白行，就代换为一行的空白行<br>
+-v 或 –show-nonprinting</p>
+<!-- more -->
+<p><font size=3><strong>|管道</strong></font><br>
+管道的作用是将左边命令的输出作为右边命令的输入</p>
+<!-- more -->
+<p><font size=3><strong>awk命令</strong></font><br>
+awk 是行处理器，优点是处理庞大文件时不会出现内存溢出或处理缓慢的问题，通常用来格式化文本信息。awk依次对每一行进行处理，然后输出。<br>
+命令形式 awk [-F|-f|-v] ‘BEGIN{} //{command1; command2} END{}’ file<br>
+[-F|-f|-v] 大参数，-F指定分隔符，-f调用脚本，-v定义变量 var=value<br>
+’ ’ 引用代码块<br>
+BEGIN 初始化代码块，在对每一行进行处理之前，初始化代码，主要是引用全局变量，设置FS分隔符<br>
+// 匹配代码块，可以使字符串或正则表达式<br>
+{} 命令代码块，包含一条或多条命令<br>
+;多条命令使用分号分隔<br>
+END 结尾代码块，对每一行进行处理后再执行的代码块，主要进行最终计算或输出<br>
+由于篇幅限制，可自行查找更详细的信息。这里awk命令的作用是从文件中每一行取出我们需要的字符串</p>
+<!-- more -->
+<p><font size=3><strong>sort命令</strong></font><br>
+sort将文件的每一行作为一个单位，相互比较，比较原则是从首字符向后，依次按ASCII码值进行比较，最后将他们按升序输出。<br>
+-b：忽略每行前面开始出的空格字符；<br>
+-c：检查文件是否已经按照顺序排序；<br>
+-d：排序时，处理英文字母、数字及空格字符外，忽略其他的字符；<br>
+-f：排序时，将小写字母视为大写字母；<br>
+-i：排序时，除了040至176之间的ASCII字符外，忽略其他的字符；<br>
+-m：将几个排序号的文件进行合并；<br>
+-M：将前面3个字母依照月份的缩写进行排序；<br>
+-n：依照数值的大小排序；<br>
+-o&lt;输出文件&gt;：将排序后的结果存入制定的文件；<br>
+-r：以相反的顺序来排序；<br>
+-t&lt;分隔字符&gt;：指定排序时所用的栏位分隔字符；</p>
+<!-- more -->
+<p><font size=3><strong>uniq命令</strong></font><br>
+uniq 命令用于报告或忽略文件中的重复行，一般与sort命令结合使用<br>
+-c或——count：在每列旁边显示该行重复出现的次数；<br>
+-d或–repeated：仅显示重复出现的行列；<br>
+-f&lt;栏位&gt;或–skip-fields=&lt;栏位&gt;：忽略比较指定的栏位；<br>
+-s&lt;字符位置&gt;或–skip-chars=&lt;字符位置&gt;：忽略比较指定的字符；<br>
+-u或——unique：仅显示出一次的行列；<br>
+-w&lt;字符位置&gt;或–check-chars=&lt;字符位置&gt;：指定要比较的字符。</p>
+<!-- more -->
+<p><font size=3><strong>&gt;命令</strong></font><br>
+是定向输出到文件,如果文件不存在，就创建文件。如果文件存在，就将其清空</p>
+<!-- more -->
+<pre><code>cat FwLog.txt |cut -d ',' -f 2 | sort | uniq -c  |grep &quot;sa&quot;  | wc -l
+</code></pre>
+<!-- more -->
+<h1 id="三分析出哪个ip对我方发起csrf攻击">三.分析出哪个ip对我方发起CSRF攻击</h1>
+<!-- more -->
+<h1 id="四分析出哪个ip对我方发起爆破攻击">四.分析出哪个ip对我方发起爆破攻击</h1>
+]]></content>
+    </entry>
+</feed>
